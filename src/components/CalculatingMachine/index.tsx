@@ -82,6 +82,7 @@ function CalculatingMachine(props: any) {
         while (callStackRef.current.length) {
             callStackRef.current.pop();
         }
+        callStackRef.current.push('0');
     }
 
     const deleteInput = () => {
