@@ -29,7 +29,7 @@ interface KEYBOARD {
 const MemoResult = React.memo(function Result(props: RESULT) {
     const { resultVal } = props;
     return (<div className='result-container'>
-        <text data-testid="result" className='result'>{resultVal}</text></div>);
+        <p data-testid="result" className='result'>{resultVal}</p></div>);
 })
 
 
@@ -64,9 +64,9 @@ function KeyBoard(props: KEYBOARD) {
 function CalculatingMachine(props: any) {
 
     const arrKeyboard: BUTTON[] = [{ title: 'C', type: BUTTON_TYPE.action, testId: "clear" }, { title: 'DEL', type: BUTTON_TYPE.action, testId: "del" }, { title: '÷', type: BUTTON_TYPE.operator, testId: "divide" }, { title: 'x', type: BUTTON_TYPE.operator, testId: "multiply" },
-    { title: '7', type: BUTTON_TYPE.number, testId: "seven" }, { title: '8', type: BUTTON_TYPE.number }, { title: '9', type: BUTTON_TYPE.number }, { title: '-', type: BUTTON_TYPE.operator, testId: "minus" },
-    { title: '4', type: BUTTON_TYPE.number }, { title: '5', type: BUTTON_TYPE.number }, { title: '6', type: BUTTON_TYPE.number }, { title: '+', type: BUTTON_TYPE.operator, testId: "plus" },
-    { title: '1', type: BUTTON_TYPE.number }, { title: '2', type: BUTTON_TYPE.number }, { title: '3', type: BUTTON_TYPE.number, testId: "three" }, { title: '0', type: BUTTON_TYPE.operator },
+    { title: '7', type: BUTTON_TYPE.number, testId: "seven" }, { title: '8', type: BUTTON_TYPE.number, testId: "eight" }, { title: '9', type: BUTTON_TYPE.number, testId: "nine" }, { title: '-', type: BUTTON_TYPE.operator, testId: "minus" },
+    { title: '4', type: BUTTON_TYPE.number, testId: "four" }, { title: '5', type: BUTTON_TYPE.number, testId: "five" }, { title: '6', type: BUTTON_TYPE.number, testId: "six" }, { title: '+', type: BUTTON_TYPE.operator, testId: "plus" },
+    { title: '1', type: BUTTON_TYPE.number, testId: "one" }, { title: '2', type: BUTTON_TYPE.number, testId: "two" }, { title: '3', type: BUTTON_TYPE.number, testId: "three" }, { title: '0', type: BUTTON_TYPE.number, testId: "zero" },
     { title: '.', type: BUTTON_TYPE.number, testId: "dot" }, { title: '=', type: BUTTON_TYPE.operator, testId: "equal" }
     ]
     const callStack: string[] = ['0'];

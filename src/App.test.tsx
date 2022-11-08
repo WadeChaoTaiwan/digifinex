@@ -1,9 +1,14 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import renderer from 'react-test-renderer';
+import CalculatingMachine from './components/CalculatingMachine';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders App snapshot', () => {
+    const app = renderer.create(
+        <div className="App">
+            <div className='machine-container'>
+                <CalculatingMachine />
+            </div>
+        </div>
+    );
+    const tree = app.toJSON();
+    expect(tree).toMatchSnapshot();
 });
