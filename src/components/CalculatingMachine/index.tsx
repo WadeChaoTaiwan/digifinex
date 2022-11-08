@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import './index.css'
-
-
-
-interface RESULT {
-    resultVal: string;
-}
+import classNames from 'classnames';
+import './index.css';
 
 enum BUTTON_TYPE {
     number = 'number',
     action = 'action',
     operator = 'operator',
+}
+
+interface RESULT {
+    resultVal: string;
 }
 
 interface BUTTON {
@@ -24,17 +23,15 @@ interface KEYBOARD {
     onBtnClick?: Function;
 }
 
-
-
 const MemoResult = React.memo(function Result(props: RESULT) {
     const { resultVal } = props;
     return (<div className='result-container'>
         <p data-testid="result" className='result'>{resultVal}</p></div>);
 })
 
-
 function KeyBoard(props: KEYBOARD) {
     const arr: Array<HTMLDivElement> = [];
+    const { onBtnClick, buttonList } = props;
     // const keyboardRef = useRef(arr);
     useEffect(() => {
         // if (keyboardRef && keyboardRef.current) {
@@ -44,12 +41,11 @@ function KeyBoard(props: KEYBOARD) {
         // }
     }, []);
 
-    const { onBtnClick, buttonList } = props;
-
     const memoKeyoards = useMemo(() => { return buttonList }, [buttonList]);
     const generateButtons = (arr: Array<BUTTON>) => {
         return <React.Fragment>
-            {arr.map((item: BUTTON, index) => (<div className='calculating-item' data-testid={item.testId} key={index} onClick={(e) => onBtnClick ? onBtnClick(item) : null}>
+            {arr.map((item: BUTTON, index) => (<div style={{ width: item.title === '0' || item.title === '=' ? '49%' : '' }}
+                className={classNames({ 'equal-item': item.title === '=' }, { 'other-item': item.title !== '=' }, 'calculating-item')} data-testid={item.testId} key={index} onClick={(e) => onBtnClick ? onBtnClick(item) : null}>
                 <p>{item.title}</p>
             </div>))
             }
@@ -61,21 +57,17 @@ function KeyBoard(props: KEYBOARD) {
     </div>)
 }
 
-function CalculatingMachine(props: any) {
+function CalculatingMachine() {
 
     const arrKeyboard: BUTTON[] = [{ title: 'C', type: BUTTON_TYPE.action, testId: "clear" }, { title: 'DEL', type: BUTTON_TYPE.action, testId: "del" }, { title: '÷', type: BUTTON_TYPE.operator, testId: "divide" }, { title: 'x', type: BUTTON_TYPE.operator, testId: "multiply" },
     { title: '7', type: BUTTON_TYPE.number, testId: "seven" }, { title: '8', type: BUTTON_TYPE.number, testId: "eight" }, { title: '9', type: BUTTON_TYPE.number, testId: "nine" }, { title: '-', type: BUTTON_TYPE.operator, testId: "minus" },
     { title: '4', type: BUTTON_TYPE.number, testId: "four" }, { title: '5', type: BUTTON_TYPE.number, testId: "five" }, { title: '6', type: BUTTON_TYPE.number, testId: "six" }, { title: '+', type: BUTTON_TYPE.operator, testId: "plus" },
-    { title: '1', type: BUTTON_TYPE.number, testId: "one" }, { title: '2', type: BUTTON_TYPE.number, testId: "two" }, { title: '3', type: BUTTON_TYPE.number, testId: "three" }, { title: '0', type: BUTTON_TYPE.number, testId: "zero" },
-    { title: '.', type: BUTTON_TYPE.number, testId: "dot" }, { title: '=', type: BUTTON_TYPE.operator, testId: "equal" }
-    ]
+    { title: '1', type: BUTTON_TYPE.number, testId: "one" }, { title: '2', type: BUTTON_TYPE.number, testId: "two" }, { title: '3', type: BUTTON_TYPE.number, testId: "three" }, { title: '.', type: BUTTON_TYPE.number, testId: "dot" },
+    { title: '0', type: BUTTON_TYPE.number, testId: "zero" }, { title: '=', type: BUTTON_TYPE.operator, testId: "equal" }];
+
     const callStack: string[] = ['0'];
     const callStackRef = useRef(callStack);
     const [result, setResult] = useState<string>('0');
-
-    // useEffect(() => {
-    //     console.log(`You update result to ${result}, ${result} `);
-    // });
 
     const clearAll = () => {
         setResult('0');
@@ -131,7 +123,6 @@ function CalculatingMachine(props: any) {
                 break;
         }
     }
-
 
     const caculateValue = (num1: string, num2: string, operator: string): string => {
         const transNum1 = parseFloat(num1);
@@ -198,14 +189,13 @@ function CalculatingMachine(props: any) {
                 executeAction(btn.title)
                 break;
         }
-    }, [result])
-
+    }, [result]);
 
 
     return (<div className='calculating-machine'>
         <MemoResult resultVal={result} />
         <KeyBoard onBtnClick={memoCallback} buttonList={arrKeyboard} />
-    </div>)
+    </div>);
 
 
 }
