@@ -1,0 +1,40 @@
+.calculating-machine {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid;
+    padding-top: 50px;
+    padding: 10px;
+}
+
+.calculating-machine .result-container {
+    background: rgba(0, 0, 0, 0.2);
+    min-height: 50px;
+    position: relative;
+    border-radius: 30px;
+}
+
+.calculating-machine .result-container .result {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.calculating-machine .button-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 4;
+}
+.calculating-machine .button-container  .calculating-item {
+    display: flex;
+    width: 25%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.calculating-machine .button-container  .calculating-item:hover {
+    color: white;
+    background: gray;
+}
